@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificates - Afifatul Rohmah</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Matrix Background -->
+  <div class="matrix-bg">
+    <canvas id="matrix-canvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Afifatul</div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="certificates.html" class="active">Certificates</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-toggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- Certificates Section -->
+  <section class="content-section">
+    <h2 class="section-title">Certificates</h2>
+    <p class="section-subtitle">My achievements & professional training</p>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="aguna">Aguna Course</button>
+      <button class="filter-btn" data-filter="fortinet">Fortinet</button>
+      <button class="filter-btn" data-filter="mikrotik">MikroTik</button>
+    </div>
+
+    <!-- Certificates Grid -->
+    <div class="certificates-grid">
+      <!-- Aguna Course -->
+      <div class="certificate-card" data-category="aguna">
+        <img src="assets/images/cert-aguna-1.jpg" alt="Aguna Course Certificate" />
+        <div class="cert-info">
+          <h3>Aguna Course - DevOps Fundamentals</h3>
+          <p class="category">Aguna Course</p>
+        </div>
+      </div>
+
+      <div class="certificate-card" data-category="aguna">
+        <img src="assets/images/cert-aguna-2.jpg" alt="Aguna Course Certificate" />
+        <div class="cert-info">
+          <h3>Aguna Course - Linux Administration</h3>
+          <p class="category">Aguna Course</p>
+        </div>
+      </div>
+
+      <!-- Fortinet -->
+      <div class="certificate-card" data-category="fortinet">
+        <img src="assets/images/cert-fortinet-1.jpg" alt="Fortinet Certificate" />
+        <div class="cert-info">
+          <h3>Fortinet - Network Security</h3>
+          <p class="category">Fortinet</p>
+        </div>
+      </div>
+
+      <!-- MikroTik -->
+      <div class="certificate-card" data-category="mikrotik">
+        <img src="assets/images/cert-mikrotik-1.jpg" alt="MikroTik Certificate" />
+        <div class="cert-info">
+          <h3>MikroTik - Routing & Switching</h3>
+          <p class="category">MikroTik</p>
+        </div>
+      </div>
+
+      <div class="certificate-card" data-category="mikrotik">
+        <img src="assets/images/cert-mikrotik-2.jpg" alt="MikroTik Certificate" />
+        <div class="cert-info">
+          <h3>MikroTik - Advanced Configuration</h3>
+          <p class="category">MikroTik</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Afifatul Rohmah. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    // === Filter Function ===
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const certificateCards = document.querySelectorAll(".certificate-card");
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const category = btn.getAttribute("data-filter");
+
+        // Active state
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Filter logic
+        certificateCards.forEach((card) => {
+          const match = category === "all" || card.dataset.category === category;
+          card.style.display = match ? "block" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>

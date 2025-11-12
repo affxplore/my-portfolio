@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Afifatul Rohmah</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Matrix Background -->
+  <div class="matrix-bg">
+    <canvas id="matrix-canvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Afifatul</div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="certificates.html">Certificates</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Projects Section -->
+  <section class="content-section">
+    <h2 class="section-title">My Projects</h2>
+    <p class="section-subtitle">Explore my recent work</p>
+    
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web-design">Web Design</button>
+      <button class="filter-btn" data-filter="frontend">Frontend</button>
+      <button class="filter-btn" data-filter="ui-ux">UI/UX</button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card" data-category="web-design">
+        <img src="https://images.unsplash.com/photo-1457305237443-44c3d5a30b89?crop=entropy&cs=srgb&fm=jpg&q=85" alt="E-Commerce Platform" class="project-image">
+        <div class="project-info">
+          <h3 class="project-title">E-Commerce Platform</h3>
+          <p class="project-description">A modern e-commerce website with responsive design and smooth user experience.</p>
+          <span class="project-category">Web Design</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card" data-category="frontend">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?crop=entropy&cs=srgb&fm=jpg&q=85" alt="Portfolio Website" class="project-image">
+        <div class="project-info">
+          <h3 class="project-title">Portfolio Website</h3>
+          <p class="project-description">Interactive portfolio site built with HTML, CSS, and JavaScript featuring smooth animations.</p>
+          <span class="project-category">Frontend</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card" data-category="ui-ux">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?crop=entropy&cs=srgb&fm=jpg&q=85" alt="Mobile App UI" class="project-image">
+        <div class="project-info">
+          <h3 class="project-title">Mobile App Design</h3>
+          <p class="project-description">Clean and intuitive mobile app interface designed in Figma with user-centric approach.</p>
+          <span class="project-category">UI/UX</span>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card" data-category="web-design">
+        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=srgb&fm=jpg&q=85" alt="Company Website" class="project-image">
+        <div class="project-info">
+          <h3 class="project-title">Company Landing Page</h3>
+          <p class="project-description">Professional business website with modern aesthetics and optimized performance.</p>
+          <span class="project-category">Web Design</span>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card" data-category="frontend">
+        <img src="https://images.pexels.com/photos/39284/macbook-apple-imac-computer-39284.jpeg" alt="Dashboard Interface" class="project-image">
+        <div class="project-info">
+          <h3 class="project-title">Admin Dashboard</h3>
+          <p class="project-description">Comprehensive admin panel with data visualization and real-time updates.</p>
+          <span class="project-category">Frontend</span>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card" data-category="ui-ux">
+        <img src="https://images.unsplash.com/photo-1654618977232-a6c6dea9d1e8?crop=entropy&cs=srgb&fm=jpg&q=85" alt="Social Media App" class="project-image">
+        <div class="project-info">
+          <h3 class="project-title">Social Media Platform</h3>
+          <p class="project-description">Engaging social media interface design with focus on user interaction and community building.</p>
+          <span class="project-category">UI/UX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <img id="modal-image" src="" alt="Project" style="width: 100%; border-radius: 8px; margin-bottom: 1.5rem;">
+      <h3 id="modal-title" style="color: var(--accent-aqua); margin-bottom: 1rem;"></h3>
+      <p id="modal-description" style="color: var(--text-gray); line-height: 1.8;"></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Afifatul Rohmah. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

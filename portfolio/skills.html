@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills - Afifatul Rohmah</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Matrix Background -->
+  <div class="matrix-bg">
+    <canvas id="matrix-canvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Afifatul</div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html" class="active">Skills</a></li>
+        <li><a href="certificates.html">Certificates</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-toggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Skills Section -->
+  <section class="content-section">
+    <h2 class="section-title">My Skills</h2>
+    <p class="section-subtitle">Explore my technical expertise</p>
+
+    <div class="skills-grid">
+      <!-- Skill Category 1 -->
+      <div class="skill-card">
+        <div class="skill-header">
+          <h3>Networking</h3>
+          <button class="toggle-btn">+</button>
+        </div>
+        <ul class="skill-details">
+          <li>MTCNA</li>
+          <li>Mikrotik Configuration</li>
+          <li>Cisco Basics</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 2 -->
+      <div class="skill-card">
+        <div class="skill-header">
+          <h3>System Administration</h3>
+          <button class="toggle-btn">+</button>
+        </div>
+        <ul class="skill-details">
+          <li>Debian 12</li>
+          <li>Apache2</li>
+          <li>Nginx</li>
+          <li>DNS Configuration</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 3 -->
+      <div class="skill-card">
+        <div class="skill-header">
+          <h3>Automation & Scripting</h3>
+          <button class="toggle-btn">+</button>
+        </div>
+        <ul class="skill-details">
+          <li>Ansible</li>
+          <li>Bash/Shell Script</li>
+          <li>Cron Jobs</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 4 -->
+      <div class="skill-card">
+        <div class="skill-header">
+          <h3>Web Development</h3>
+          <button class="toggle-btn">+</button>
+        </div>
+        <ul class="skill-details">
+          <li>HTML & CSS</li>
+          <li>JavaScript</li>
+          <li>WordPress</li>
+          <li>Responsive Design</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Afifatul Rohmah. All rights reserved.</p>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    // Toggle Skill Details
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const details = button.parentElement.nextElementSibling;
+        const isOpen = details.classList.toggle('open');
+        button.textContent = isOpen ? '−' : '+';
+      });
+    });
+  </script>
+</body>
+</html>
