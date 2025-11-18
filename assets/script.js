@@ -5,92 +5,87 @@ class MatrixRain {
     if (!this.canvas) return;
 
     this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.resizeCanvas();
 
-    this.chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン01';
+    this.chars = '0101010101010101010101';
     this.charArray = this.chars.split('');
     this.fontSize = 14;
-    this.columns = this.canvas.width / this.fontSize;
-    this.drops = [];
+    this.columns = Math.floor(this.canvas.width / this.fontSize);
+    this.drops = Array(this.columns).fill(0).map(() => Math.random() * -50);
 
-    for (let i = 0; i < this.columns; i++) {
-      this.drops[i] = Math.random() * -100;
-    }
+    window.addEventListener('resize', () => this.resizeCanvas());
 
     this.draw();
+  }
 
-    window.addEventListener('resize', () => {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-      this.columns = this.canvas.width / this.fontSize;
-      this.drops = [];
-      for (let i = 0; i < this.columns; i++) {
-        this.drops[i] = Math.random() * -100;
-      }
-    });
+  resizeCanvas() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
   }
 
   draw() {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.ctx.fillStyle = '#00FFFF';
-    this.ctx.font = this.fontSize + 'px monospace';
+    this.ctx.fillStyle = '#00ffff';
+    this.ctx.font = `${this.fontSize}px monospace`;
 
-    for (let i = 0; i < this.drops.length; i++) {
+    this.drops.forEach((drop, i) => {
       const char = this.charArray[Math.floor(Math.random() * this.charArray.length)];
-      this.ctx.fillText(char, i * this.fontSize, this.drops[i] * this.fontSize);
+      this.ctx.fillText(char, i * this.fontSize, drop * this.fontSize);
 
-      if (this.drops[i] * this.fontSize > this.canvas.height && Math.random() > 0.975) {
+      if (drop * this.fontSize > this.canvas.height && Math.random() > 0.975) {
         this.drops[i] = 0;
       }
       this.drops[i]++;
-    }
+    });
 
     requestAnimationFrame(() => this.draw());
   }
 }
 
+
 // ================= TYPING EFFECT =================
 class TypeWriter {
-  constructor(element, texts, speed = 100, deleteSpeed = 50, pauseTime = 2000) {
+  constructor(element, texts, speed = 90, deleteSpeed = 50, pauseTime = 1500) {
     this.element = element;
     this.texts = texts;
     this.speed = speed;
     this.deleteSpeed = deleteSpeed;
     this.pauseTime = pauseTime;
-    this.textIndex = 0;
+    this.index = 0;
     this.charIndex = 0;
     this.isDeleting = false;
+
     this.type();
   }
 
   type() {
-    const currentText = this.texts[this.textIndex];
+    const current = this.texts[this.index];
 
     if (this.isDeleting) {
-      this.element.textContent = currentText.substring(0, this.charIndex - 1);
       this.charIndex--;
     } else {
-      this.element.textContent = currentText.substring(0, this.charIndex + 1);
       this.charIndex++;
     }
 
-    let timeout = this.isDeleting ? this.deleteSpeed : this.speed;
+    this.element.textContent = current.substring(0, this.charIndex);
 
-    if (!this.isDeleting && this.charIndex === currentText.length) {
-      timeout = this.pauseTime;
+    let time = this.isDeleting ? this.deleteSpeed : this.speed;
+
+    if (!this.isDeleting && this.charIndex === current.length) {
+      time = this.pauseTime;
       this.isDeleting = true;
     } else if (this.isDeleting && this.charIndex === 0) {
       this.isDeleting = false;
-      this.textIndex = (this.textIndex + 1) % this.texts.length;
-      timeout = 500;
+      this.index = (this.index + 1) % this.texts.length;
+      time = 500;
     }
 
-    setTimeout(() => this.type(), timeout);
+    setTimeout(() => this.type(), time);
   }
 }
+
 
 // ================= NAVIGATION =================
 function initNavigation() {
@@ -102,45 +97,38 @@ function initNavigation() {
       navMenu.classList.toggle('active');
 
       const spans = navToggle.querySelectorAll('span');
-      if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-      } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      }
+      const active = navMenu.classList.contains('active');
+
+      spans[0].style.transform = active ? 'rotate(45deg) translate(5px, 5px)' : 'none';
+      spans[1].style.opacity = active ? '0' : '1';
+      spans[2].style.transform = active ? 'rotate(-45deg) translate(7px, -6px)' : 'none';
     });
   }
 
-  // Highlight active link
+  // Highlight active menu
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('.nav-menu a');
-  navLinks.forEach(link => {
+  const links = document.querySelectorAll('.nav-menu a');
+
+  links.forEach(link => {
     if (link.getAttribute('href') === currentPage) {
       link.classList.add('active');
     }
   });
 }
 
+
 // ================= BACK TO TOP BUTTON =================
 function initBackToTop() {
-  const backToTopBtn = document.querySelector('.back-to-top');
-  if (!backToTopBtn) return;
+  const btn = document.querySelector('.back-to-top');
+  if (!btn) return;
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
+    btn.classList.toggle('visible', window.scrollY > 300);
   });
 
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
+
 
 // ================= CONTACT MODAL =================
 function openContact() {
@@ -151,12 +139,11 @@ function closeContact() {
   document.getElementById("contactModal").classList.remove("active");
 }
 
-window.addEventListener("click", function (event) {
+window.addEventListener("click", e => {
   const modal = document.getElementById("contactModal");
-  if (event.target === modal) {
-    closeContact();
-  }
+  if (e.target === modal) closeContact();
 });
+
 
 // ================= PAGE TRANSITION =================
 function initPageTransition() {
@@ -164,54 +151,35 @@ function initPageTransition() {
 
   window.addEventListener('load', () => {
     setTimeout(() => {
-      document.body.style.transition = 'opacity 0.5s ease';
       document.body.style.opacity = '1';
-    }, 100);
-  });
-
-  const navLinks = document.querySelectorAll('a[href]');
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (href && !link.hasAttribute('target')) {
-        e.preventDefault();
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-          window.location.href = href;
-        }, 300);
-      }
-    });
+      document.body.style.transition = 'opacity .4s ease';
+    }, 50);
   });
 }
 
+
 // ================= PROJECT FILTER =================
 function initProjectFilter() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
 
-  if (filterButtons.length === 0 || projectCards.length === 0) return;
+  if (!buttons.length) return;
 
-  filterButtons.forEach(btn => {
+  buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      // hapus class aktif dari semua tombol
-      filterButtons.forEach(b => b.classList.remove('active'));
+      buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      const filter = btn.getAttribute('data-filter');
+      const filter = btn.dataset.filter;
 
-      projectCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          card.style.display = 'block';
-          setTimeout(() => (card.style.opacity = '1'), 50);
-        } else {
-          card.style.opacity = '0';
-          setTimeout(() => (card.style.display = 'none'), 300);
-        }
+      cards.forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? "block" : "none";
+        card.style.opacity = (filter === 'all' || card.dataset.category === filter) ? "1" : "0";
       });
     });
   });
 }
+
 
 // ================= INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
@@ -219,16 +187,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const typingElement = document.getElementById('typing-text');
   if (typingElement) {
-    const texts = [
+    new TypeWriter(typingElement, [
       "Hi, I'm Afifatul",
       "I'm interested in the world of IT",
       "I like reading books and watching movies"
-    ];
-    new TypeWriter(typingElement, texts);
+    ]);
   }
 
   initNavigation();
   initBackToTop();
   initPageTransition();
-  initProjectFilter(); // ✅ Tambahan fungsi filter project
+  initProjectFilter();
 });

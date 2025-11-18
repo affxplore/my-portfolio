@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <!-- Background -->
+
+  <!-- Matrix Background -->
   <div class="matrix-bg">
     <canvas id="matrix-canvas"></canvas>
   </div>
@@ -17,7 +18,7 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="nav-logo">Afifatul</div>
+      <div class="nav-logo">Afifa</div>
       <ul class="nav-menu">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -30,21 +31,33 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero-modern">
-    <div class="hero-left">
-      <p class="intro">Hello, I'm <span class="accent">Afifatul!</span></p>
-      <h2><span id="typing"></span><span class="cursor">|</span></h2>
-      <p class="description">
-        I design, automate, and operate reliable systems.  
-        I enjoy CI/CD, Linux servers, cloud management, and modern web development.
-      </p>
-      <a href="assets/cv.pdf" class="cv-btn" download>
-        <i class="fa-solid fa-download"></i> Download CV
-      </a>
-    </div>
+  <section id="home">
+    <div class="home-container">
 
-    <div class="hero-right">
-      <img src="https://images.unsplash.com/photo-1736939661350-dec5c2bd5cd1?crop=entropy&cs=srgb&fm=jpg&q=85" alt="Afifatul Rohmah" class="hero-photo">
+      <!-- Text -->
+      <div class="home-text">
+        <p>Hello, I'm <span class="highlight">Afifatul!</span></p>
+
+        <!-- TYPING AREA FIXED -->
+        <h1>I am a <span id="typing"></span></h1>
+
+        <p>
+          I design, automate, and operate reliable systems.
+          I enjoy CI/CD, Linux servers, cloud management,
+          and modern web development.
+        </p>
+
+        <!-- Fix jarak button -->
+        <a href="https://www.canva.com/design/DAGW_E7YBt0/jy-MEc6ct8uonAcLelHFRw/view?utm_content=DAGW_E7YBt0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb9026dfb6d" target="_blank">
+          <i class="fa-solid fa-download"></i> Download CV
+        </a>
+      </div>
+
+      <!-- Image -->
+      <div class="home-image">
+        <img src="assets/foto.jpg" alt="Afifatul">
+      </div>
+
     </div>
   </section>
 
@@ -53,35 +66,40 @@
     <p>&copy; 2025 Afifatul Rohmah. All rights reserved.</p>
   </footer>
 
+  <!-- Typing Script -->
   <script>
-  const roles = ["DevOps Engineer"];
-  let index = 0, charIndex = 0, current = roles[index];
-  const typingEl = document.getElementById("typing");
+    document.addEventListener("DOMContentLoaded", () => {
+      const target = document.getElementById("typing");
+      const words = ["DevOps Engineer", "System Administrator", "Web Developer"];
+      let i = 0, j = 0, isDeleting = false;
 
-  function typeEffect() {
-    if (charIndex < current.length) {
-      typingEl.textContent += current.charAt(charIndex);
-      charIndex++;
-      setTimeout(typeEffect, 100);
-    } else {
-      setTimeout(eraseEffect, 2000);
-    }
-  }
+      function type() {
+        const word = words[i];
 
-  function eraseEffect() {
-    if (charIndex > 0) {
-      typingEl.textContent = current.substring(0, charIndex - 1);
-      charIndex--;
-      setTimeout(eraseEffect, 50);
-    } else {
-      index = (index + 1) % roles.length;
-      current = roles[index];
-      setTimeout(typeEffect, 300);
-    }
-  }
+        if (!isDeleting) {
+          target.textContent = word.slice(0, j + 1);
+          j++;
+          if (j === word.length) {
+            isDeleting = true;
+            setTimeout(type, 1000);
+            return;
+          }
+        } else {
+          target.textContent = word.slice(0, j - 1);
+          j--;
+          if (j === 0) {
+            isDeleting = false;
+            i = (i + 1) % words.length;
+          }
+        }
 
-  document.addEventListener("DOMContentLoaded", typeEffect);
-</script>
+        setTimeout(type, isDeleting ? 70 : 120);
+      }
+
+      type();
+    });
+  </script>
+
   <script src="assets/script.js"></script>
 </body>
 </html>
